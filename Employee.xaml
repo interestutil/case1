@@ -16,11 +16,46 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label HorizontalAlignment="Center" Name="emp_name_label" FontWeight="Bold" FontSize="35" Margin="0, 10, 0, 0" Content="test"></Label>
-        <Label Width="200" Height="40" Name="pendinglabel" FontSize="20" Margin="-400, 70, 0, 0" Content="Pending / In progress" Background="LightGray"></Label>
+        <Label HorizontalAlignment="Center" Name="emp_name_label" FontWeight="Bold" FontSize="35" Margin="0, 5, 0, 0" Content="test"></Label>
+        <Label Width="200" Height="40" FontSize="20" Margin="-400, 40, 0, 0" Content="Pending / In progress" Background="LightGray"></Label>
 
         <!--row 0-->
 
-        <DataGrid Grid.Row="1" AlternatingRowBackground="DarkGray" Name="pendingdata"></DataGrid>
+        <DataGrid AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" SelectionChanged="pendingdata_SelectionChanged" Margin="100, 0, 100, 0" Grid.Row="1" AlternatingRowBackground="DarkGray" Name="pendingdata">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="TaskID" Binding="{Binding TaskID}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    
+        <!--row 1-->
+
+        <Label Content="Task: " Grid.Row="2" FontSize="20" Margin="150, 10, 0, 0"></Label>
+        <Border Grid.Row="2" Margin="-350, -20, 0, 0" BorderBrush="Black" BorderThickness="2" Width="40" Height="40">
+            <Label Name="tasklabel" FontSize="20"></Label>
+        </Border>
+
+        <Label Content="Status: " Grid.Row="2" FontSize="20" Margin="290, 10.5, 0, 0"></Label>
+        <ComboBox Name="statuscombobox" Grid.Row="2" Margin="90, -15, 0, 0" Width="150" Height="30">
+            <ComboBoxItem Content="In Progress"></ComboBoxItem>
+            <ComboBoxItem Content="Completed"></ComboBoxItem>
+        </ComboBox>
+
+        <Button Content="Save" Grid.Row="2" Margin="550, -15, 0, 0" Width="120" Height="30" Click="Button_Click"></Button>
+        <!--row 2-->
+
+        <Label Width="200" Height="40" FontSize="20" Margin="-400, 30, 0, 0" Content="Completed Tasks" Background="LightGray" Grid.Row="3"></Label>
+        <!--row 3-->
+
+        <DataGrid AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" SelectionChanged="pendingdata_SelectionChanged" Margin="100, 0, 100, 0" Grid.Row="4" AlternatingRowBackground="DarkGray" Name="completeddata">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="TaskID" Binding="{Binding TaskID}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
