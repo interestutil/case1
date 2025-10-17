@@ -49,7 +49,7 @@ namespace case1
                 else
                 {
                     // add employee window
-                    Employee employee = new Employee();
+                    Employee employee = new Employee(query.Name);
                     employee.Show();
                     this.Close();
                 }

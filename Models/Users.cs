@@ -15,5 +15,6 @@ namespace case1.Models
         public string Password { get; set; }
         public string Email { get; set; }
         public bool role { get; set; }
+        public IQueryable<Tasks> Tasks { get; set; }
     }
 }

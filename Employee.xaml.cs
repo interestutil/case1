@@ -1,4 +1,5 @@
-﻿using System;
+﻿using case1.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,17 @@ namespace case1
     /// </summary>
     public partial class Employee : Window
     {
-        public Employee()
+        string emp;
+        Context context = new Context();
+        public Employee(string emp_name)
         {
             InitializeComponent();
+            emp = emp_name;
+            emp_name_label.Content = emp;
+            var query = (from x in context.Tasks
+                         where x.Name == emp && x.Status != "Completed"
+                         select x).Select(t => new { t.TaskID, t.Title, t.Description, t.Status });
+            pendingdata.ItemsSource = query.ToList();
         }
     }
 }
