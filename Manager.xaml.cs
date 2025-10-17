@@ -1,4 +1,6 @@
-﻿using System;
+﻿using case1.Data;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,75 @@ namespace case1
     /// </summary>
     public partial class Manager : Window
     {
+        Context context = new Context();
+        void refresh()
+        {
+            var query = from x in context.Tasks
+                        select new Tasks { TaskID = x.TaskID, Title = x.Title, Description = x.Description, Status = x.Status, Name = x.Name };
+            managerdata.ItemsSource = query.ToList();
+        }
         public Manager()
         {
             InitializeComponent();
+            refresh();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e) // add
+        {
+            if (statuscombo.Text.IsNullOrEmpty() || titletextbox.Text.IsNullOrEmpty() || descriptiontextbox.Text.IsNullOrEmpty() || nametextbox.Text.IsNullOrEmpty())
+            {
+                MessageBox.Show("Please fill in all fields.");
+                return;
+            }
+            string status = statuscombo.Text, title = titletextbox.Text, desc = descriptiontextbox.Text, name = nametextbox.Text;
+            
+            context.Tasks.Add(new Tasks
+            {
+                Title = title,
+                Description = desc,
+                Status = status,
+                Name = name
+            });
+            context.SaveChanges();
+            refresh();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e) //edit
+        {
+            if (statuscombo.Text.IsNullOrEmpty() || titletextbox.Text.IsNullOrEmpty() || descriptiontextbox.Text.IsNullOrEmpty() || nametextbox.Text.IsNullOrEmpty() || taskidtextbox.Text.IsNullOrEmpty())
+            {
+                MessageBox.Show("Please fill in all fields.");
+                return;
+            }
+            int id = int.Parse(taskidtextbox.Text);
+            string status = statuscombo.Text, title = titletextbox.Text, desc = descriptiontextbox.Text, name = nametextbox.Text;
+            var query = (from x in context.Tasks
+                         where x.TaskID == id
+                         select x).FirstOrDefault();
+            if (query != null)
+            {
+                query.Title = title;
+                query.Description = desc;
+                query.Status = status;
+                query.Name = name;
+                context.SaveChanges();
+                refresh();
+            }
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e) // delete
+        {
+            if (taskidtextbox.Text.IsNullOrEmpty())
+            {
+                MessageBox.Show("Please enter a Task ID.");
+                return;
+            }
+            var query = (from x in context.Tasks
+                         where x.TaskID.ToString() == taskidtextbox.Text
+                         select x).FirstOrDefault();
+            context.Tasks.Remove(query);
+            context.SaveChanges();
+            refresh();
         }
     }
 }
