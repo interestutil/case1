@@ -32,6 +32,10 @@ namespace case1
         {
             InitializeComponent();
             refresh();
+            var query = from x in context.Users
+                        where x.Name != "admin_user"
+                        select x.Name;
+            nametextbox.ItemsSource = query.ToList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) // add
@@ -87,9 +91,18 @@ namespace case1
             var query = (from x in context.Tasks
                          where x.TaskID.ToString() == taskidtextbox.Text
                          select x).FirstOrDefault();
-            context.Tasks.Remove(query);
-            context.SaveChanges();
-            refresh();
+            if (query != null)
+            {
+                context.Tasks.Remove(query);
+                context.SaveChanges();
+                refresh();
+            }
+            else
+            {
+                MessageBox.Show("invalid task");
+                return;
+            }
+            
         }
     }
 }

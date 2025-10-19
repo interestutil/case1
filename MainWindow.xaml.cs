@@ -26,12 +26,12 @@ namespace case1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (usertext.Text.IsNullOrEmpty() || passtext.Text.IsNullOrEmpty())
+            if (usertext.Text.IsNullOrEmpty() || passtext.Password.IsNullOrEmpty())
             {
                 MessageBox.Show("Enter both the name and password.");
                 return;
             }
-            string user = usertext.Text, pass = passtext.Text;
+            string user = usertext.Text, pass = passtext.Password;
             var query = (from x in context.Users
                         where x.Name == user && x.Password == pass
                         select x).FirstOrDefault();

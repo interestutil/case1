@@ -30,7 +30,7 @@
         <Label Grid.Row="1" Content="Title: " FontSize="20" VerticalAlignment="Center" Margin="20"></Label>
         <TextBox Grid.Row="1" Name="titletextbox" FontSize="20" VerticalAlignment="Center" Margin="-400,0,0,0" Width="200"></TextBox>
         <Label Grid.Row="1" Content="Employee Name: " FontSize="20" VerticalAlignment="Center" Margin="400, 0, 0, 0"></Label>
-        <TextBox Grid.Row="1" Name="nametextbox" FontSize="20" VerticalAlignment="Center" Margin="550, 0, 0, 0" Width="200"></TextBox>
+        <ComboBox Grid.Row="1" Name="nametextbox" FontSize="20" VerticalAlignment="Center" Margin="550, 0, 0, 0" Width="200"></ComboBox>
     
         <!--row 1-->
 
